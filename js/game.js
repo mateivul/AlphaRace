@@ -220,7 +220,7 @@ function onKey(e) {
 function shortcuts(e) {
     if (state === "playing" && e.code !== "Escape") return;
 
-    if (e.code === "Escape" && state !== "playing") {
+    if (e.code === "Escape") {
         resetGame();
         return;
     }

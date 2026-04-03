@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("exportScores").addEventListener("click", exportData);
 
     document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.code === "KeyR") {
+            preventDefault();
+            resetGame();
+            return;
+        }
         if (state === "playing") return;
 
         if ((e.ctrlKey || e.metaKey) && e.code === "Digit1") {
@@ -16,9 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if ((e.ctrlKey || e.metaKey) && e.code === "Digit3") {
             e.preventDefault();
             setMode("random");
-        } else if ((e.ctrlKey || e.metaKey) && e.code === "KeyR") {
-            e.preventDefault();
-            resetGame();
         }
     });
 });
