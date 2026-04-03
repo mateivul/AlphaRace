@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AlphaRace</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>AlphaRace</h1>
+                <p class="subtitle">type the alphabet, fast.</p>
+            </header>
+
+            <nav class="modes">
+                <button class="mode-btn active" data-mode="az">A-Z</button>
+                <button class="mode-btn" data-mode="za">Z-A</button>
+                <button class="mode-btn" data-mode="random">Random</button>
+            </nav>
+
+            <main class="game-area">
+                <div class="big-letter" id="bigLetter">A</div>
+                <div class="progress" id="progress"></div>
+                <div class="timer" id="timer">0.000s</div>
+                <div class="status" id="status">Press A to start</div>
+
+                <div class="completion" id="done">
+                    <div class="completion-title">done</div>
+                    <div class="final-time" id="finalTime">4.321s</div>
+                    <div id="mistakesDisplay"></div>
+                    <div if="recordBadge"></div>
+                    <div class="restart-hint">enter to race again</div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
