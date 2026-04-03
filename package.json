@@ -1,0 +1,16 @@
+{
+    "name": "alpharace",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "npx serve ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "devDependencies": {
+        "serve": "^14.2.6"
+    }
+}
