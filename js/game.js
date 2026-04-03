@@ -251,3 +251,36 @@ function setMode(m) {
     });
     resetGame();
 }
+
+function resetGame() {
+    if (raf) cancelAnimationFrame(raf);
+
+    seq = genSeq(mode);
+    idx = 0;
+    t0 = null;
+    t1 = null;
+    mistakes = 0;
+    state = "idle";
+
+    drawProgress();
+    renderCurrent();
+    timer.textContent = "0.000s";
+    done.classList.remove("show");
+    status.textContent = "Press " + seq[0] + " to start";
+
+    showBoard(mode);
+    updateStats();
+}
+
+function initGame() {
+    document.addEventListener("keydown", (e) => {
+        onKey(e);
+        shortcuts(e);
+    });
+
+    document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.addEventListener("click", () => setMode(btn.dataset.mode));
+    });
+
+    resetGame();
+}
