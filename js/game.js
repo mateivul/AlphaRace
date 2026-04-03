@@ -10,7 +10,7 @@ const lbContainer = document.getElementById("lbList");
 const lbTitle = document.getElementById("leaderboardTitle");
 const gamesEl = document.getElementById("gamesPlayed");
 const bestEl = document.getElementById("personalBest");
-const avgEl = document.getElementById("avrageTime");
+const avgEl = document.getElementById("averageTime");
 
 let mode = "az";
 let seq = [];
@@ -29,7 +29,7 @@ function fmtTime(ms) {
 
 function genSeq(m) {
     //game mode
-    let alpha = "ABCDEFGHIJKLMNOPQRSTUVWXTZ".split("");
+    let alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     if (m === "za") return alpha.reverse();
     if (m === "random") {
         for (let i = alpha.length - 1; i > 0; i--) {
@@ -101,7 +101,7 @@ function showBoard(m) {
     board.forEach((entry, i) => {
         let row = document.createElement("div");
         row.className = "lb-row";
-        if (i === 0) row.className.add("gold");
+        if (i === 0) row.classList.add("gold");
 
         let rankEl = document.createElement("span");
         rankEl.className = "lb-rank";
@@ -204,7 +204,7 @@ function onKey(e) {
     if (key.length !== 1 || key < "A" || key > "Z") return;
 
     if (state === "idle" && key === seq[0]) startGame();
-    if (state !== playing) return;
+    if (state !== "playing") return;
 
     if (key == seq[idx]) {
         idx++;

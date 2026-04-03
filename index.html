@@ -29,13 +29,31 @@
                     <div class="completion-title">done</div>
                     <div class="final-time" id="finalTime">4.321s</div>
                     <div id="mistakesDisplay"></div>
-                    <div if="recordBadge"></div>
+                    <div id="recordBadge"></div>
                     <div class="restart-hint">enter to race again</div>
                 </div>
             </main>
+
+            <aside class="leaderboard">
+                <h3 id="leaderboardTitle">Leaderboard (A-Z)</h3>
+                <div id="lbList"></div>
+                <div class="leaderboard-actions">
+                    <button id="exportScores" class="export-btn">Export</button>
+                    <button id="clearScores" class="clear-btn">Clear</button>
+                </div>
+            </aside>
+
+            <footer class="game-info">
+                <div class="stats" id="stats">
+                    <span>Games: <span id="gamesPlayed">0</span></span>
+                    <span>Best: <span id="personalBest">-</span></span>
+                    <span>Avg: <span id="averageTime">-</span></span>
+                </div>
+                <div class="controls-hint">enter restert ~ esc reset ~ arrows change mode</div>
+            </footer>
         </div>
 
-        <script src="js/main.js"></script>
         <script src="js/game.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
