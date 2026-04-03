@@ -33,7 +33,7 @@ function exportData() {
     data.stats.za = getStats("za");
     data.stats.random = getStats("random");
 
-    let blob = new Bolb([JSON.stringify(data, null, 2)], { type: application / json });
+    let blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     let url = URL.createObjectURL(blob);
     let a = document.createElement("a");
     a.href = url;

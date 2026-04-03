@@ -103,7 +103,7 @@ h1 {
         transform: translateX(0);
     }
     20% {
-        transfrom: translateX(-10px);
+        transform: translateX(-10px);
     }
     40% {
         transform: translateX(10px);
@@ -253,7 +253,7 @@ kbd {
 }
 
 #lbList {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.015);
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     overflow: hidden;
@@ -286,7 +286,7 @@ kbd {
     font-size: 0.85rem;
 }
 
-.lb-row.gold .lb.rank {
+.lb-row.gold .lb-rank {
     color: #e8b30e;
 }
 
@@ -388,7 +388,7 @@ kbd {
 }
 
 @media (max-width: 600px) {
-    .conatiner {
+    .container {
         padding: 25px 16px;
     }
     h1 {

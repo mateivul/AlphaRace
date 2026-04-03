@@ -55,7 +55,7 @@ function drawProgress() {
     for (let i = 0; i < seq.length; i++) {
         let sp = document.createElement("span");
         sp.textContent = seq[i];
-        if (i < idx) sp.className = "letter cone";
+        if (i < idx) sp.className = "letter done";
         else if (i === idx) sp.className = "letter current";
         else sp.className = "letter upcoming";
         progress.appendChild(sp);
@@ -105,13 +105,13 @@ function showBoard(m) {
 
         let rankEl = document.createElement("span");
         rankEl.className = "lb-rank";
-        rankEl.textContent = fmtTime(entry.time);
+        rankEl.textContent = i + 1 + ".";
 
         let timeEl = document.createElement("span");
         timeEl.className = "lb-time";
         timeEl.textContent = fmtTime(entry.time);
 
-        let missCol = document.createElement("spna");
+        let missCol = document.createElement("span");
         missCol.className = "lb-mistakes";
         if (entry.mistakes === 0) {
             missCol.textContent = "perfect";
@@ -130,6 +130,7 @@ function showBoard(m) {
 function clearScores() {
     if (confirm("clear " + mode + " scores?")) {
         localStorage.removeItem("alpharace-" + mode);
+        localStorage.removeItem("alpharace-stats-" + mode);
         showBoard(mode);
         updateStats();
     }
@@ -177,7 +178,7 @@ function complete() {
     if (mistakes === 0) {
         missEl.innerHTML = '<div class="perfect">PERFECT</div>';
     } else {
-        missEl.innerHTML = `<div class="mistakes-text">${mistakes} mistakes${mistakes > 1 ? "s" : ""}</div>`;
+        missEl.innerHTML = `<div class="mistakes-text">${mistakes} mistake${mistakes > 1 ? "s" : ""}</div>`;
     }
 
     let rank = saveScore(mode, total, mistakes);
@@ -240,7 +241,7 @@ function shortcuts(e) {
 function cycleModes(dir) {
     let modes = ["az", "za", "random"];
     let i = modes.indexOf(mode);
-    setMode(mode[(i + dir + 3) % 3]);
+    setMode(modes[(i + dir + 3) % 3]);
 }
 
 function setMode(m) {
