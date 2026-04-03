@@ -8,7 +8,7 @@ type the alphabet really fast, that's it.
 - from z to a
 - and randomized
 
-And also if you want you can download your leaderbord stats
+And also you can download your leaderboard stats
 
 **Also if you want to run locally:**
 
