@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     initGame();
 
-    document.getElementById("clearScores").addEventListener("click", clearScores);
+    document.getElementById("clearScores").addEventListener("click", showClearConfirm);
     document.getElementById("exportScores").addEventListener("click", exportData);
 
     document.addEventListener("keydown", (e) => {
@@ -22,6 +22,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+function showClearConfirm() {
+    const actions = document.querySelector(".leaderboard-actions");
+    actions.innerHTML = `
+        <span class="confirm-text">clear ${mode} scores?</span>
+        <button class="confirm-yes">yes</button>
+        <button class="confirm-no">no</button>
+        `;
+    actions.querySelector(".confirm-yes").addEventListener("click", () => {
+        clearScores();
+        restoreActions();
+    });
+    actions.querySelector(".confirm-no").addEventListener("click", restoreActions);
+}
+
+function restoreActions() {
+    const actions = document.querySelector(".leaderboard-actions");
+    actions.innerHTML = `
+        <button id="exportScores" class="export-btn">Export</button>
+        <button id="clearScores" class="clear-btn">Clear</button>
+    `;
+    actions.querySelector("#exportScores").addEventListener("click", exportData);
+    actions.querySelector("#clearScores").addEventListener("click", showClearConfirm);
+}
 
 function exportData() {
     let data = { exported: new Date().toISOString(), leaderboards: {}, stats: {} };

@@ -355,6 +355,52 @@ kbd {
     border-color: rgba(224, 66, 66, 0.3);
 }
 
+.confirm-text {
+    font-size: 0.75rem;
+    color: #6b7a8d;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.confirm-yes {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid rgba(212, 53, 63, 0.35);
+    border-radius: 6px;
+    color: #d4353f;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        border-color 0.15s,
+        background 0.15s;
+}
+
+.confirm-yes:hover {
+    border-color: #d4353f;
+    background: rgba(212, 53, 63, 0.08);
+}
+
+.confirm-no {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    color: #4a5868;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        border-color 0.15s,
+        color 0.15s;
+}
+
+.confirm-no:hover {
+    color: #c4cdd6;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
 .game-info {
     margin-top: 35px;
     text-align: center;

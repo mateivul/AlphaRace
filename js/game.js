@@ -128,12 +128,10 @@ function showBoard(m) {
 }
 
 function clearScores() {
-    if (confirm("clear " + mode + " scores?")) {
-        localStorage.removeItem("alpharace-" + mode);
-        localStorage.removeItem("alpharace-stats-" + mode);
-        showBoard(mode);
-        updateStats();
-    }
+    localStorage.removeItem("alpharace-" + mode);
+    localStorage.removeItem("alpharace-stats-" + mode);
+    showBoard(mode);
+    updateStats();
 }
 
 function getStats(m) {
