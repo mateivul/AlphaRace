@@ -126,3 +126,69 @@ function showBoard(m) {
         lbContainer.appendChild(row);
     });
 }
+
+function clearScores() {
+    if (confirm("clear " + mode + " scores?")) {
+        localStorage.removeItem("alpharace-" + mode);
+        showBoard(mode);
+        updateStats();
+    }
+}
+
+function getStats(m) {
+    let raw = localStorage.getItem("alpharace-stats-" + m);
+    return raw ? JSON.parse(raw) : { gamesPlayed: 0, totalTime: 0, bestTime: null };
+}
+
+function recordGame(m, timeMs) {
+    let s = getStats(m);
+    s.gamesPlayed++;
+    s.totalTime += timeMs;
+    if (s.bestTime === null || timeMs < s.bestTime) s.bestTime = timeMs;
+    localStorage.setItem("alpharace-stats-" + m, JSON.stringify(s));
+    updateStats();
+}
+
+function updateStats() {
+    let s = getStats(mode);
+    gamesEl.textContent = s.gamesPlayed;
+    bestEl.textContent = s.bestTime !== null ? fmtTime(s.bestTime) : "-";
+    avgEl.textContent = s.gamesPlayed > 0 ? fmtTime(s.totalTime / s.gamesPlayed) : "-";
+}
+
+function startGame() {
+    state = "playing";
+    t0 = performance.now();
+    idx = 0;
+    status.textContent = "";
+    tick();
+}
+
+function complete() {
+    t1 = performance.now();
+    state = "finished";
+    let total = t1 - t0;
+
+    if (raf) cancelAnimationFrame(raf);
+
+    renderCurrent();
+    finalTime.textContent = fmtTime(total);
+
+    if (mistakes === 0) {
+        missEl.innerHTML = '<div class="perfect">PERFECT</div>';
+    } else {
+        missEl.innerHTML = `<div class="mistakes-text">${mistakes} mistakes${mistakes > 1 ? "s" : ""}</div>`;
+    }
+
+    let rank = saveScore(mode, total, mistakes);
+    if (rank !== null && rank <= 10) {
+        badge.innerHTML = `<div class="record-badge">#${rank}</div>`;
+    } else {
+        badge.innerHTML = "";
+    }
+
+    done.classList.add("show");
+    showBoard(mode);
+    recordGame(mode, total);
+    status.textContent = "";
+}
