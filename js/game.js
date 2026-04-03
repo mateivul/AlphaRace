@@ -61,3 +61,68 @@ function drawProgress() {
         progress.appendChild(sp);
     }
 }
+
+function renderCurrent() {
+    bigLetter.textContent = idx < 26 ? seq[idx] : "\u2713";
+    bigLetter.className = state === "finished" ? "big-letter finished" : "big-letter";
+}
+
+function getBoard(m) {
+    let raw = localStorage.getItem("alpharace-" + m);
+    return raw ? JSON.parse(raw) : [];
+}
+
+function saveScore(m, timeMs, miss) {
+    let board = getBoard(m);
+    let entry = { time: timeMs, mistakes: miss, date: new Date().toISOString() };
+
+    board.push(entry);
+    board.sort((a, b) => (a.time !== b.time ? a.time - b.time : a.mistakes - b.mistakes));
+    if (board.length > 10) board.length = 10;
+
+    localStorage.setItem("alpharace-" + m, JSON.stringify(board));
+
+    let rank = board.findIndex((e) => e.time === entry.time && e.date === entry.date);
+    return rank !== -1 ? rank + 1 : null;
+}
+
+function showBoard(m) {
+    let board = getBoard(m);
+    let names = { az: "A-Z", za: "Z-A", random: "random" };
+    lbTitle.textContent = "leaderboard - " + names[m];
+
+    lbContainer.innerHTML = "";
+
+    if (board.length === 0) {
+        lbContainer.innerHTML = '<div class="no-scores">No scores yet</div>';
+        return;
+    }
+
+    board.forEach((entry, i) => {
+        let row = document.createElement("div");
+        row.className = "lb-row";
+        if (i === 0) row.className.add("gold");
+
+        let rankEl = document.createElement("span");
+        rankEl.className = "lb-rank";
+        rankEl.textContent = fmtTime(entry.time);
+
+        let timeEl = document.createElement("span");
+        timeEl.className = "lb-time";
+        timeEl.textContent = fmtTime(entry.time);
+
+        let missCol = document.createElement("spna");
+        missCol.className = "lb-mistakes";
+        if (entry.mistakes === 0) {
+            missCol.textContent = "perfect";
+            missCol.style.color = "#1aab7a";
+        } else {
+            missCol.textContent = entry.mistakes + " miss";
+        }
+
+        row.appendChild(rankEl);
+        row.appendChild(timeEl);
+        row.appendChild(missCol);
+        lbContainer.appendChild(row);
+    });
+}
