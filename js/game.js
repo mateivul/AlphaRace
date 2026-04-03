@@ -192,3 +192,62 @@ function complete() {
     recordGame(mode, total);
     status.textContent = "";
 }
+
+function onKey(e) {
+    let key = e.key.toUpperCase();
+
+    if (state === "finished" && e.key === "Enter") {
+        resetGame();
+        return;
+    }
+
+    if (key.length !== 1 || key < "A" || key > "Z") return;
+
+    if (state === "idle" && key === seq[0]) startGame();
+    if (state !== playing) return;
+
+    if (key == seq[idx]) {
+        idx++;
+        drawProgress();
+        renderCurrent();
+        if (idx >= 26) complete();
+    } else {
+        mistakes++;
+        bigLetter.classList.add("wrong");
+        setTimeout(() => bigLetter.classList.remove("wrong"), 400);
+    }
+}
+
+function shortcuts(e) {
+    if (state === "playing" && e.code !== "Escape") return;
+
+    if (e.code === "Escape" && state !== "playing") {
+        resetGame();
+        return;
+    }
+
+    if (state !== "playing") {
+        if (e.code === "ArrowLeft") {
+            e.preventDefault();
+            cycleModes(-1);
+        } else if (e.code === "ArrowRight") {
+            e.preventDefault();
+            cycleModes(1);
+        }
+    }
+}
+
+function cycleModes(dir) {
+    let modes = ["az", "za", "random"];
+    let i = modes.indexOf(mode);
+    setMode(mode[(i + dir + 3) % 3]);
+}
+
+function setMode(m) {
+    if (state === "playing") return;
+    mode = m;
+    document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.mode === m);
+    });
+    resetGame();
+}
